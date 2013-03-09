@@ -3,7 +3,7 @@
  */
 var express = require('express'),
     routes = require('./routes'),
-    debug = require('debug'),
+    debug = require('debug')('app'),
     path = require('path');
 var app = module.exports = express();
 app.configure(function () {
