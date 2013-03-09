@@ -11,7 +11,10 @@ For coverage report run `make coverage`
 
 ### Acepptance
 
-Run `cucumber-js`. If some feature fails there will be a screenshot taken. 
+Run `cucumber-js`¹. If some feature fails there will be a screenshot taken. 
 See ./screenshot.js
+
+¹Requires [cucumber.js](https://github.com/cucumber/cucumber-js) installed on your computer.
+`$ npm install -g cucumber`
 
 
