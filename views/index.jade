@@ -2,4 +2,12 @@ extends layout
 
 block content
     h1= title
-    p Welcome to #{title}
+    .contenainer-fluid
+        .row-fluid
+            .span3
+                ul
+                    -each category in categories.rows
+                        li!=category.key[1]
+
+
+            .span7

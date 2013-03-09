@@ -2,8 +2,16 @@
  * Module dependencies.
  */
 var express = require('express'),
+    cradle = require('cradle'),
     routes = require('./routes'),
     debug = require('debug')('app'),
+    dbconf = {
+        host: process.env.DB_HOST || 'localhost',
+        port: process.env.DB_PORT || 5984,
+        username: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD || 'root'
+    },
+    middleware = require('./lib/middleware'),
     path = require('path');
 var app = module.exports = express();
 app.configure(function () {
@@ -24,5 +32,14 @@ app.configure('development', function () {
         showStack: true
     }));
     app.locals.pretty = true;
+    app.set('db', new(cradle.Connection)(dbconf.host, dbconf.port, {
+        auth: {
+            username: dbconf.username,
+            password: dbconf.password
+        }
+    }).database('energy'));
 });
-app.get('/', routes.index);
+app.get('/', middleware.loadCategories, routes.index);
+app.get('/productos/:category', middleware.loadProductsByCategory, function(req,res){
+	res.json(res.locals.products);
+});
