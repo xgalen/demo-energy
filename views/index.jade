@@ -1,13 +1,20 @@
 extends layout
 
 block content
+    -url= 'http://www.grupoenergy.com/grupoenergy/images/familias'
     h1= title
-    .contenainer-fluid
-        .row-fluid
+    .container
+        .row
             .span3
-                ul
+                ul.unstyled
                     -each category in categories.rows
                         li!=category.key[1]
-
-
-            .span7
+            .span9
+                #products
+                    ul.thumbnails
+                        -each category in categories.rows
+                            li.span2
+                                div.thumbnail(title='#{category.key[1]}', style="height:170px")
+                                    a.thumbnail(href='/categories/#{category.key[0]}')
+                                        img(src='#{url}/#{category.key[2]}_100x100.jpg')
+                                        h6!=category.key[1]

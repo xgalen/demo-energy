@@ -47,7 +47,7 @@ function putData() {
         categories: {
             map: function (doc) {
                 if (doc.type === 'product') {
-                    emit([doc.safeCategoryName, doc.categoryName], doc._id);
+                    emit([doc.safeCategoryName, doc.categoryName, doc.categoryId], doc._id);
                 }
             },
             reduce: "_count"

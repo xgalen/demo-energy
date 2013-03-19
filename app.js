@@ -40,6 +40,6 @@ app.configure('development', function () {
     }).database('energy'));
 });
 app.get('/', middleware.loadCategories, routes.index);
-app.get('/productos/:category', middleware.loadProductsByCategory, function(req,res){
-	res.json(res.locals.products);
+app.get('/productos/:category', middleware.loadProductsByCategory, function (req, res) {
+    res.json(res.locals.products);
 });
