@@ -1,0 +1,8 @@
+ul.nav.nav-list
+    li.nav-header Productos
+    - sc = locals.selectedCategory 
+    -each category in categories.rows
+        li(class = sc && sc  === category.key[0] && 'active'|| '')
+            a(href="/products/#{category.key[0]}") 
+                |#{category.key[1]}
+                span.pull-right!=category.value
