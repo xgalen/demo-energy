@@ -79,7 +79,7 @@ db.exists(function (err, exists) {
     } else {
         debug('Database does not exists.');
         debug('Creating db');
-        db.create(putDocs, function () {
+        db.create(putData, function () {
             putData();
         });
     }
