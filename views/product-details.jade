@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    .row
+        ul.breadcrumb
+            li
+                a(href="/") Home
+                span.divider/
+            li
+                a(href="#{product.categoryUrl}")!=product.categoryName 
+                span.divider/
+            li
+                a.active(href="#{product.url}")!=product.name
+        .media
+            a.pull-left(href="/#{product.id}")
+                img(src='#{thumbBaseUrl}/#{product.id}/#{product.id}_200.jpg')
+            div.media-body
+                h4.media-heading!=product.name
+                p!=product.description.replace(/\.-/g, '<br />')
+                h5.pull-right #{product.prize.toFixed(2)} eur
