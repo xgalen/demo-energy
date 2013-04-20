@@ -1,15 +1,29 @@
 extends layout
 
 block content
-    -thumbBaseUrl = 'http://www.grupoenergy.com/grupoenergy/images/productos'
-    #products
-        ul.media-list
-            -each product in products.rows
-                li.media
-                    a.pull-left(href="#")
-                        img(src='#{thumbBaseUrl}/#{product.id}/#{product.id}_200.jpg')
-                    div.media-body
-                        h4.media-heading!=product.doc.name
-                        p!=product.doc.description.replace(/\.-/g, '<br />')
-                        h5.pull-right #{product.doc.prize.toFixed(2)} eur
-                        a M&aacute;s informaci&oacute;n
+    .row
+        ul.breadcrumb
+            li
+                a(href="/") Home
+                span.divider/
+            li
+                a(href="#{category.url}")=category.key[1]
+        #products
+            ul.media-list
+                -each product in products.rows
+                    li.media
+                        a.pull-left(href="/#{product.id}")
+                            img(src='#{thumbBaseUrl}/#{product.id}/#{product.id}_200.jpg')
+                        div.media-body
+                            h4.media-heading!=product.doc.name
+                            p!=product.doc.description.replace(/\.-/g, '<br />')
+                            h5.pull-right #{product.doc.prize.toFixed(2)} eur
+                            a.product-link(href="#{product.url}") M&aacute;s informaci&oacute;n
+block scripts
+    script(type="text/javascript")
+        $(function(){
+            $("ul.media-list li.media div.media-body").click(function(e){
+                window.location.href = $(this).children('a').attr('href');
+            })
+        });
+
