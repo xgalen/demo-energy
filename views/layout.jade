@@ -4,20 +4,14 @@ html
         title= title
         link(href='/css/bootstrap.css', rel='stylesheet')
         link(href='/css/bootstrap-responsive.css', rel='stylesheet')
-        //link(href='/css/docs.css', rel='stylesheet')
         block head
     body
         .navbar.navbar-static-top.navbar-inverse
             .navbar-inner
                 .container-fluid
-                    a.brand(href="/") Store
-                    -if (!locals.disableSearch)
-                        form.navbar-search.pull-left(method='GET', action='/search')
-                            input#slosilo-search.search-query(name='q', type="text", placeholder="Search", data-provide="typeahead")
-                    ul.nav
-                        li.divider-vertical
-                            a(href="/help") Help
+                    a.brand(href="/") Energy sistem
         .container
+            br
             .row
                 .span4
                     include partials/category-list

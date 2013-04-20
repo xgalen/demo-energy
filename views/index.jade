@@ -6,7 +6,7 @@ block content
         ul.thumbnails
             -each category in categories.rows
                 li.span2
-                    div.thumbnail(title='#{category.key[1]}', style="height:170px")
-                        a.thumbnail(href='/products/#{category.key[0]}')
+                    div.thumbnail(title='#{category.key[1]}')
+                        a.thumbnail(href='/productos/#{category.key[0]}', style="height:170px")
                             img(src='#{url}/#{category.key[2]}_100x100.jpg')
                             h6!=category.key[1]
