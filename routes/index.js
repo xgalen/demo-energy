@@ -22,3 +22,4 @@ exports.byCategory = function (req, res) {
     });
 };
 exports.products = require('./products');
+exports.cart = require('./cart');

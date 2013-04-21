@@ -11,10 +11,17 @@ block content
                 span.divider/
             li
                 a.active(href="#{product.url}")!=product.name
-        .media
-            a.pull-left(href="/#{product.id}")
-                img(src='#{thumbBaseUrl}/#{product.id}/#{product.id}_200.jpg')
-            div.media-body
-                h4.media-heading!=product.name
-                p!=product.description.replace(/\.-/g, '<br />')
-                h5.pull-right #{product.prize.toFixed(2)} eur
+        .span12
+            .media
+                .thumbnail.pull-left(href="/#{product.id}")
+                    img(src='#{thumbBaseUrl}/#{product.id}/#{product.id}_200.jpg')
+                    .caption
+                        h3 #{product.prize.toFixed(2)} eur
+                        a.btn.btn-success(href="/buy/#{product.id}")
+                            i.icon-white.icon-shopping-cart
+                            | Comprar
+                div.media-body
+                    h4.media-heading!=product.name
+                    p!=product.description.replace(/\.-/g, '<br />')
+                    h5 Especificaciones
+                    p!=product.specs.replace(/\.-/g, '<br />')

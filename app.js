@@ -66,6 +66,8 @@ function augmentProducts(req, res, next) {
     }
     next();
 }
+var loadProduct = [ middleware.loadCategories, middleware.loadProduct, augmentCategories, augmentProducts];
 app.get('/', middleware.loadCategories, augmentCategories, routes.index);
 app.get('/productos/:category', middleware.loadCategories, middleware.loadProductsByCategory, augmentCategories, augmentProducts, routes.byCategory);
-app.get('/:id', middleware.loadCategories, middleware.loadProduct, augmentCategories, augmentProducts, routes.products.get);
+app.get('/buy/:id', loadProduct, routes.cart.get);
+app.get('/:id', loadProduct, routes.products.get);

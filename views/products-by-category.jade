@@ -8,17 +8,19 @@ block content
                 span.divider/
             li
                 a(href="#{category.url}")=category.key[1]
-        #products
-            ul.media-list
-                -each product in products.rows
-                    li.media
-                        a.pull-left(href="/#{product.id}")
-                            img(src='#{thumbBaseUrl}/#{product.id}/#{product.id}_200.jpg')
-                        div.media-body
-                            h4.media-heading!=product.doc.name
-                            p!=product.doc.description.replace(/\.-/g, '<br />')
-                            h5.pull-right #{product.doc.prize.toFixed(2)} eur
-                            a.product-link(href="#{product.url}") M&aacute;s informaci&oacute;n
+        .span3
+            include partials/category-list
+        .span9
+            #products
+                ul.media-list
+                    -each product in products.rows
+                        li.media
+                            .thumbnail.pull-left(href="/#{product.id}")
+                                img(src='#{thumbBaseUrl}/#{product.id}/#{product.id}_200.jpg')
+                            div.media-body
+                                h4.media-heading!=product.doc.name
+                                h5 #{product.doc.prize.toFixed(2)} eur
+                                a.product-link(href="#{product.url}") M&aacute;s informaci&oacute;n
 block scripts
     script(type="text/javascript")
         $(function(){

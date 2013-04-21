@@ -1,0 +1,55 @@
+extends layout
+
+block content
+    .row
+        ul.breadcrumb
+            li
+                a(href="/") Home
+                span.divider/
+            li
+                a(href="#{product.categoryUrl}")!=product.categoryName 
+                span.divider/
+            li
+                a.active(href="#{product.url}")
+                    i.icon.icon-shopping-cart
+                    |&nbsp;
+                    !=product.name
+    .row
+        form(method="POST", action="/buy/#{product.id}")
+            legend Pedido
+            .span6
+                label Nombre
+                input.span6(name="name",required="required",type="text", placeholder="Escriba su nombre…")
+                label Apellidos
+                input.span6(name="surname",required="required",type="text", placeholder="Escriba sus apellidos…")
+                label e-mail
+                input.span6(name="email",required="required",type="email", placeholder="Escriba su dirección de email…")
+                label Dirección
+                input.span6(name="address",required="required",type="text", placeholder="Escriba su direcci&oacute;n…")
+                button.btn.btn-primary.btn-large(type="submit") Realizar compra
+
+            .span6
+                table.table.table-condensed
+                    thead
+                        tr
+                            th Concepto
+                            th Precio
+                    tbody
+                        tr
+                            td
+                                a.pull-right(href="#{product.url}")!=product.name
+                            td
+                                span.pull-right!=product.prize
+                                    |&nbsp;&euro;
+                        tr
+                            td
+                                span.pull-right Gastos de envío
+                            td
+                                span.pull-right 0 
+                                    |&nbsp;&euro;
+                        tr.success
+                            td
+                                strong.pull-right TOTAL
+                            td
+                                strong.pull-right!=product.prize
+                                    |&nbsp;&euro;
