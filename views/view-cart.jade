@@ -19,13 +19,13 @@ block content
             legend Pedido
             .span6
                 label Nombre
-                input.span6(name="name",required="required",type="text", placeholder="Escriba su nombre…")
+                input.span6(value="#{locals.form && form.name || ''}",name="name",required="required",type="text", placeholder="Escriba su nombre…")
                 label Apellidos
-                input.span6(name="surname",required="required",type="text", placeholder="Escriba sus apellidos…")
+                input.span6(value="#{locals.form && form.surname || ''}", name="surname",required="required",type="text", placeholder="Escriba sus apellidos…")
                 label e-mail
-                input.span6(name="email",required="required",type="email", placeholder="Escriba su dirección de email…")
+                input.span6(value="#{locals.form && form.email || ''}",name="email",required="required",type="email", placeholder="Escriba su dirección de email…")
                 label Dirección
-                input.span6(name="address",required="required",type="text", placeholder="Escriba su direcci&oacute;n…")
+                input.span6(value="#{locals.form && form.address || ''}",name="address",required="required",type="text", placeholder="Escriba su direcci&oacute;n…")
                 button.btn.btn-primary.btn-large(type="submit") Realizar compra
 
             .span6

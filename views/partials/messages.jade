@@ -1,0 +1,8 @@
+- if (locals.messages)
+	br
+	- locals.messages.forEach(function(msg){
+		div(class="alert alert-#{msg.type}") 
+			- if (msg.foreword)
+				h4= msg.foreword
+			|#{msg.text}
+	- })

@@ -12,8 +12,20 @@ var express = require('express'),
         password: process.env.DB_PASSWORD || 'root'
     },
     middleware = require('./lib/middleware'),
-    path = require('path');
-var app = module.exports = express();
+    http = require('http'),
+    req = http.IncomingMessage.prototype,
+    path = require('path'),
+    app = module.exports = express();
+req.pushMessage = function (type, foreword, text) {
+    if (!this.session.messages) {
+        this.session.messages = [];
+    }
+    this.session.messages.push({
+        type: type,
+        foreword: foreword,
+        text: text
+    });
+};
 app.configure(function () {
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
@@ -22,6 +34,14 @@ app.configure(function () {
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
+    app.use(express.cookieParser('your secret here'));
+    app.use(express.session());
+    app.use(function (req, res, next) {
+        var msg = req.session.messages;
+        delete req.session.messages;
+        res.locals.messages = msg;
+        next();
+    });
     app.use(express.compress());
     app.use(function (req, res, next) {
         res.locals.thumbBaseUrl = 'http://www.grupoenergy.com/grupoenergy/images/productos';
@@ -66,8 +86,9 @@ function augmentProducts(req, res, next) {
     }
     next();
 }
-var loadProduct = [ middleware.loadCategories, middleware.loadProduct, augmentCategories, augmentProducts];
+var loadProduct = [middleware.loadCategories, middleware.loadProduct, augmentCategories, augmentProducts];
 app.get('/', middleware.loadCategories, augmentCategories, routes.index);
 app.get('/productos/:category', middleware.loadCategories, middleware.loadProductsByCategory, augmentCategories, augmentProducts, routes.byCategory);
 app.get('/buy/:id', loadProduct, routes.cart.get);
+app.post('/buy/:id', loadProduct, routes.cart.processCart);
 app.get('/:id', loadProduct, routes.products.get);
