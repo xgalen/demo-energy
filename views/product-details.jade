@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    .row
+        ul.breadcrumb
+            li
+                a(href="/") Home
+                span.divider/
+            li
+                a(href="#{product.categoryUrl}")!=product.categoryName 
+                span.divider/
+            li
+                a.active(href="#{product.url}")!=product.name
+        .span12
+            .media
+                .thumbnail.pull-left(href="/#{product.id}")
+                    img(src='#{thumbBaseUrl}/#{product.id}/#{product.id}_200.jpg')
+                    .caption
+                        h3 #{product.prize.toFixed(2)} eur
+                        a.btn.btn-success(href="/buy/#{product.id}")
+                            i.icon-white.icon-shopping-cart
+                            | Comprar
+                div.media-body
+                    h4.media-heading!=product.name
+                    p!=product.description.replace(/\.-/g, '<br />')
+                    h5 Especificaciones
+                    p!=product.specs.replace(/\.-/g, '<br />')
