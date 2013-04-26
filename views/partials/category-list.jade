@@ -3,6 +3,6 @@ ul.nav.nav-list
     -sc = locals.selectedCategory 
     -each category in categories.rows
         li(class = sc && sc  === category.key[0] && 'active'|| '')
-            a(href="/productos/#{category.key[0]}") 
+            a(href="#{category.url}") 
                 |#{category.key[1]}
                 span.pull-right!=category.value
