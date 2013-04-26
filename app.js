@@ -12,6 +12,7 @@ var express = require('express'),
         password: process.env.DB_PASSWORD || 'root'
     },
     middleware = require('./lib/middleware'),
+    connectAgument = require('./lib/connect-augment.js'),
     http = require('http'),
     req = http.IncomingMessage.prototype,
     path = require('path'),
@@ -63,32 +64,9 @@ app.configure('development', function () {
         }
     }).database('energy'));
 });
-
-function augmentCategories(req, res, next) {
-    var c = res.locals.categories,
-        i = c.length;
-    while (i--) {
-        c[i].url = '/productos/' + c[i].key[0];
-    }
-    next();
-}
-
-function augmentProducts(req, res, next) {
-    var c = res.locals.products,
-        i = c && c.length;
-    while (i--) {
-        c[i].url = '/' + c[i].id;
-        c[i].categoryUrl = '/productos/' + c[i].safeCategoryName;
-    }
-    if ((c = res.locals.product)) {
-        c.url = '/' + c.id;
-        c.categoryUrl = '/productos/' + c.safeCategoryName;
-    }
-    next();
-}
-var loadProduct = [middleware.loadCategories, middleware.loadProduct, augmentCategories, augmentProducts];
-app.get('/', middleware.loadCategories, augmentCategories, routes.index);
-app.get('/productos/:category', middleware.loadCategories, middleware.loadProductsByCategory, augmentCategories, augmentProducts, routes.byCategory);
+var loadProduct = [middleware.loadCategories, middleware.loadProduct, connectAgument.augmentCategories, connectAgument.augmentProducts];
+app.get('/', middleware.loadCategories, connectAgument.augmentCategories, routes.index);
+app.get('/productos/:category', middleware.loadCategories, middleware.loadProductsByCategory,connectAgument.augmentCategories, connectAgument.augmentProducts, routes.byCategory);
 app.get('/buy/:id', loadProduct, routes.cart.get);
 app.post('/buy/:id', loadProduct, routes.cart.processCart);
 app.get('/:id', loadProduct, routes.products.get);
